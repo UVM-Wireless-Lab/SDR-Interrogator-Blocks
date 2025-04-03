@@ -1,0 +1,32 @@
+find_package(PkgConfig)
+
+PKG_CHECK_MODULES(PC_GR_PORTABLE_INTERROGATOR_BLOCKS gnuradio-portable_interrogator_blocks)
+
+FIND_PATH(
+    GR_PORTABLE_INTERROGATOR_BLOCKS_INCLUDE_DIRS
+    NAMES gnuradio/portable_interrogator_blocks/api.h
+    HINTS $ENV{PORTABLE_INTERROGATOR_BLOCKS_DIR}/include
+        ${PC_PORTABLE_INTERROGATOR_BLOCKS_INCLUDEDIR}
+    PATHS ${CMAKE_INSTALL_PREFIX}/include
+          /usr/local/include
+          /usr/include
+)
+
+FIND_LIBRARY(
+    GR_PORTABLE_INTERROGATOR_BLOCKS_LIBRARIES
+    NAMES gnuradio-portable_interrogator_blocks
+    HINTS $ENV{PORTABLE_INTERROGATOR_BLOCKS_DIR}/lib
+        ${PC_PORTABLE_INTERROGATOR_BLOCKS_LIBDIR}
+    PATHS ${CMAKE_INSTALL_PREFIX}/lib
+          ${CMAKE_INSTALL_PREFIX}/lib64
+          /usr/local/lib
+          /usr/local/lib64
+          /usr/lib
+          /usr/lib64
+          )
+
+include("${CMAKE_CURRENT_LIST_DIR}/gnuradio-portable_interrogator_blocksTarget.cmake")
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GR_PORTABLE_INTERROGATOR_BLOCKS DEFAULT_MSG GR_PORTABLE_INTERROGATOR_BLOCKS_LIBRARIES GR_PORTABLE_INTERROGATOR_BLOCKS_INCLUDE_DIRS)
+MARK_AS_ADVANCED(GR_PORTABLE_INTERROGATOR_BLOCKS_LIBRARIES GR_PORTABLE_INTERROGATOR_BLOCKS_INCLUDE_DIRS)

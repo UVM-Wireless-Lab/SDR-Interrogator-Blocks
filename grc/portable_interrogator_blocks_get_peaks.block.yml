@@ -1,0 +1,68 @@
+id: portable_interrogator_blocks_get_peaks
+label: Get AM Peaks
+category: '[portable_interrogator_blocks]'
+
+templates:
+  imports: from gnuradio import portable_interrogator_blocks
+  make: portable_interrogator_blocks.get_peaks(${inVecSize}, ${f1_ind}, ${f2_ind}, ${f3_ind}, ${searchSize})
+  callbacks:
+  - set_f1(${f1_ind})
+  - set_f2(${f2_ind})
+  - set_f13(${f3_ind})
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+- id: inVecSize
+  label: Input Length
+  dtype: int
+  default: 1024
+
+- id: f1_ind
+  label: LSB Index
+  dtype: int
+  default: 512
+
+- id: f2_ind
+  label: Carrier Index
+  dtype: int
+  default: 512
+
+- id: f3_ind
+  label: USB Index
+  dtype: int
+  default: 512
+
+- id: searchSize
+  label: Search Range
+  dtype: int
+  default: 10
+
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: in
+  domain: stream
+  dtype: float
+  vlen: ${inVecSize}
+  optional: False
+
+outputs:
+- label: out
+  domain: stream
+  dtype: float
+  vlen: 3
+  optional: False
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1
