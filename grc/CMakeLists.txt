@@ -9,6 +9,5 @@ install(FILES
     portable_interrogator_blocks_csb_gain_control.block.yml
     portable_interrogator_blocks_get_peaks.block.yml
     portable_interrogator_blocks_CSB_calc.block.yml
-    portable_interrogator_blocks_csb_sweep_gain_freq.block.yml
     portable_interrogator_blocks_CL_Sweep_Controller.block.yml DESTINATION share/gnuradio/grc/blocks
 )

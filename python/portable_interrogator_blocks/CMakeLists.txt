@@ -25,7 +25,6 @@ GR_PYTHON_INSTALL(
     csb_gain_control.py
     get_peaks.py
     CSB_calc.py
-    csb_sweep_gain_freq.py
     CL_Sweep_Controller.py DESTINATION ${GR_PYTHON_DIR}/gnuradio/portable_interrogator_blocks
 )
 
@@ -43,5 +42,4 @@ add_custom_target(
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}
           ${CMAKE_BINARY_DIR}/test_modules/gnuradio/portable_interrogator_blocks/
 )
-GR_ADD_TEST(qa_csb_sweep_gain_freq ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_csb_sweep_gain_freq.py)
 GR_ADD_TEST(qa_CL_Sweep_Controller ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_CL_Sweep_Controller.py)

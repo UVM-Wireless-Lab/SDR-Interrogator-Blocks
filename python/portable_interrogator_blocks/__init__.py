@@ -23,6 +23,6 @@ except ModuleNotFoundError:
 from .csb_gain_control import csb_gain_control
 from .get_peaks import get_peaks
 from .CSB_calc import CSB_calc
-from .csb_sweep_gain_freq import csb_sweep_gain_freq
+
 from .CL_Sweep_Controller import CL_Sweep_Controller
 #
