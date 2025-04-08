@@ -1,6 +1,6 @@
 # SDR Interrogator Blocks
 ## Overview
-This repository contains a GNU radio module with the Python blocks used in the portable interrogator developed at University of Vermont for the Burned Area Monitoring System (BAMS) project. The blocks in this repository are used to conduct automated measurements of device conversion loss and measure the carrier to sideband distortion for an amplitude modulated interrogation signal. To see implementations in GNU radio flowgraphs check the flowgraphs repository at https://github.com/UVM-Wireless-Lab/SDR-Interrogator-Flowgraphs 
+This repository contains a GNU radio module with the Python blocks used in the portable interrogator developed at University of Vermont for the Burned Area Monitoring System (BAMS) project. The blocks in this repository are used to conduct automated measurements of device conversion loss and measure the carrier to sideband distortion for an amplitude modulated interrogation signal. To see implementations in GNU radio flowgraphs check [SDR-Interrogator-Flowgraphs](https://github.com/UVM-Wireless-Lab/SDR-Interrogator-Flowgraphs) 
 
 ## Structure
 There are four blocks defined in this repository:
