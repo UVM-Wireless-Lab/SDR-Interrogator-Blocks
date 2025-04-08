@@ -80,7 +80,7 @@ sweep value and saved to a .csv file
     
     def set_average(self,Average):
         self.Average = Average
-        self.avgVec = np.empty((self.inputs,Average))
+        self.avgVec = np.empty((2,Average))
     
     
     def set_buffer(self,sample_buffer):
