@@ -1,10 +1,10 @@
 id: portable_interrogator_blocks_csb_gain_control
-label: Gain Sweep
+label: Sweep Controller
 category: '[portable_interrogator_blocks]'
 
 templates:
   imports: from gnuradio import portable_interrogator_blocks
-  make: portable_interrogator_blocks.csb_gain_control(${Sweep}, ${Start}, ${Stop}, ${Step}, ${sample_buffer}, ${Average}, ${Prefix}, ${OutLen},${FileName},${appendDT},${freq})
+  make: portable_interrogator_blocks.csb_gain_control(${Sweep}, ${Start}, ${Stop}, ${Step}, ${sample_buffer}, ${Average}, ${Prefix}, ${OutLen},${FileName},${appendDT})
 
   callbacks:
   - set_sweep(${Sweep})
@@ -13,7 +13,7 @@ templates:
   - set_path(${Prefix})
   - set_name(${FileName})
   - set_append(${appendDT})
-  - set_freq(${freq})
+  #- set_freq(${freq})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -72,10 +72,10 @@ parameters:
   dtype: bool
   default: True
 
-- id: freq
-  label: Frequency
-  dtype: float
-  default: 890e6
+# - id: freq
+#   label: Frequency
+#   dtype: float
+#   default: 890e6
 
 
 
@@ -92,38 +92,38 @@ parameters:
 #      * vlen (optional - data stream vector length. Default is 1)
 #      * optional (optional - set to 1 for optional inputs. Default is 0)
 inputs:
-- label: C/SB
+- label: in0
   domain: stream
   dtype: float
  #vlen: 
-  optional: false
+  optional: 0
 
-- label: LSB
+- label: in1
   domain: stream
   dtype: float
  #vlen: 
-  optional: false
+  optional: 0
 
-- label: C
+- label: in2
   domain: stream
   dtype: float
  #vlen: 
-  optional: false
+  optional: 0
 
-- label: USB
+- label: in3
   domain: stream
   dtype: float
  #vlen: 
-  optional: false
+  optional: 0
 
 outputs:
-- label: CSB_out
+- label: in0_out
   domain: stream
   dtype: float
   vlen: ${OutLen}
-  optional: false
+  optional: 0
 
-- label: gain_out
+- label: param_out
   domain: message
 
 

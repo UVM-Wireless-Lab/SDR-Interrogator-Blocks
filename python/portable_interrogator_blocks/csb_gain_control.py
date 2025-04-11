@@ -31,18 +31,17 @@ sweep value and saved to a .csv file
     \n Output Length - output vector length for plotting [1+(Stop-Start)/Step]
     \n File Name - Name of file to save
     \n Add Time - Boolean to append date and time to file name (Y-m-d-HMS). WARNING: If false file will be overwritten if the 
-    file name is not changed between sweeps
-    \n Frequency: Transmit frequency. This is only used in the file name"""
+    file name is not changed between sweeps"""
 
     def __init__(self, Sweep = False,Start = 0,Stop =10,Step = 0.5,sample_buffer=10, Average = 1,
-        Prefix = "sweep_out", OutLen = 32,FileName = "power_sweep",appendDT = True,freq = 890e6):
+        Prefix = "sweep_out", OutLen = 32,FileName = "power_sweep",appendDT = True):
         gr.sync_block.__init__(self,
             name ="CSB Gain Controller",
             in_sig=[np.float32,np.float32,np.float32,np.float32],
             out_sig=[(np.float32,OutLen)]
             )
 
-        self.message_port_register_out(pmt.intern('gain_out'))
+        self.message_port_register_out(pmt.intern('param_out'))
 
         self.inputs = 4   # Used in construction only to define array sizes
 
@@ -66,7 +65,7 @@ sweep value and saved to a .csv file
         self.sample_buffer = sample_buffer
         self.counter  = sample_buffer
         self.index = 0
-        self.freq = freq
+        #self.freq = freq
 
 
 # Callbacks: 
@@ -94,8 +93,8 @@ sweep value and saved to a .csv file
     def set_append(self,appendDT):
         self.appendDT = appendDT
 
-    def set_freq(self,freq):
-        self.freq = freq
+    # def set_freq(self,freq):
+    #     self.freq = freq
     
 ########################################################
 
@@ -115,7 +114,7 @@ sweep value and saved to a .csv file
 
 
             case 1: # Update sweep variable
-                    self.message_port_pub(pmt.intern("gain_out"), pmt.cons(pmt.intern("gain"),pmt.to_pmt(self.xAxe[self.index])))
+                    self.message_port_pub(pmt.intern("param_out"), pmt.cons(pmt.intern("gain"),pmt.to_pmt(self.xAxe[self.index])))
                     self.counter = self.sample_buffer
                     self.state = 2
 
@@ -154,7 +153,7 @@ sweep value and saved to a .csv file
 
                 
             case 4: # Write data to file
-                self.message_port_pub(pmt.intern("gain_out"), pmt.cons(pmt.intern("gain"),pmt.to_pmt(0))) #"Turn off" Tx (set gain to 0dB)
+                self.message_port_pub(pmt.intern("param_out"), pmt.cons(pmt.intern("gain"),pmt.to_pmt(0))) #"Turn off" Tx (set gain to 0dB)
                 
                 out = np.concatenate((self.xAxe.reshape(1,-1),self.data),axis=0)
 
@@ -163,11 +162,11 @@ sweep value and saved to a .csv file
                 else:
                    time = ""
                 
-                Ftx = str(self.freq/1e6)+"MHz"+("" if self.FileName=="" else "_")
+                #Ftx = str(self.freq/1e6)+"MHz"+("" if self.FileName=="" else "_")
                 print(f"{self.Path}{time}{self.FileName}")
 
 
-                np.savetxt(f"{self.Path}{time}{Ftx}{self.FileName}.csv",out.T,delimiter =',',fmt='%f')
+                np.savetxt(f"{self.Path}{time}{self.FileName}.csv",out.T,delimiter =',',fmt='%f')
 
                 print("Data Saved! Sweep Complete \n")
 
