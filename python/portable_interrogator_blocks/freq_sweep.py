@@ -1,9 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# MIT License
 #
-# Copyright 2025 UVM.
+# Copyright (c) 2025 University of Vermont
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 #
 
 
@@ -12,7 +29,7 @@ import pmt
 from gnuradio import gr
 import datetime as dt
 
-class CL_Sweep_Controller(gr.sync_block):
+class freq_sweep(gr.sync_block):
     """
 Block to sweep gain and measure conversion loss curves The block functions by publishing a message with the variable to be swept 
 which should be connected to a "Message Pair to Var" block. The input is recorded for each 
@@ -79,7 +96,7 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
     
     def set_average(self,Average):
         self.Average = Average
-        self.avgVec = np.empty((2,Average))
+        self.avgVec = np.empty((1,Average))
     
     
     def set_buffer(self,sample_buffer):
@@ -128,9 +145,9 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
                 self.counter += -1
                 
                 in0 = np.sum(input_items[0])/len(input_items[0]) # For each input, average values in the input buffer
-                in1 = self.xAxe[self.index]-in0 #np.sum(input_items[1])/len(input_items[1])
+                
 
-                self.avgVec[:,self.counter] = np.array([[in0],[in1]])[:,0]
+                self.avgVec[:,self.counter] = in0
 
                 if self.counter < 0:
                     self.state = 3

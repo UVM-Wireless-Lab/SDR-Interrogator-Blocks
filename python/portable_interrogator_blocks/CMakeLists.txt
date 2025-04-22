@@ -25,7 +25,8 @@ GR_PYTHON_INSTALL(
     csb_gain_control.py
     get_peaks.py
     CSB_calc.py
-    CL_Sweep_Controller.py DESTINATION ${GR_PYTHON_DIR}/gnuradio/portable_interrogator_blocks
+    CL_Sweep_Controller.py
+    freq_sweep.py DESTINATION ${GR_PYTHON_DIR}/gnuradio/portable_interrogator_blocks
 )
 
 ########################################################################
