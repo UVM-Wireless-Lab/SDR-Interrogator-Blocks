@@ -6,9 +6,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 install(FILES
-    portable_interrogator_blocks_csb_gain_control.block.yml
+    portable_interrogator_blocks_sweep_controller.block.yml
     portable_interrogator_blocks_get_peaks.block.yml
     portable_interrogator_blocks_CSB_calc.block.yml
     portable_interrogator_blocks_CL_Sweep_Controller.block.yml
-    portable_interrogator_blocks_freq_sweep.block.yml DESTINATION share/gnuradio/grc/blocks
+    DESTINATION share/gnuradio/grc/blocks
 )

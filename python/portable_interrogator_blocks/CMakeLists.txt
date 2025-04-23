@@ -22,11 +22,11 @@ add_subdirectory(bindings)
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    csb_gain_control.py
+    sweep_controller.py
     get_peaks.py
     CSB_calc.py
     CL_Sweep_Controller.py
-    freq_sweep.py DESTINATION ${GR_PYTHON_DIR}/gnuradio/portable_interrogator_blocks
+    DESTINATION ${GR_PYTHON_DIR}/gnuradio/portable_interrogator_blocks
 )
 
 ########################################################################

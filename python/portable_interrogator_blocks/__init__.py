@@ -20,10 +20,10 @@ except ModuleNotFoundError:
     pass
 
 # import any pure python here
-from .csb_gain_control import csb_gain_control
+from .sweep_controller import sweep_controller
 from .get_peaks import get_peaks
 from .CSB_calc import CSB_calc
 
 from .CL_Sweep_Controller import CL_Sweep_Controller
-from .freq_sweep import freq_sweep
+
 #
