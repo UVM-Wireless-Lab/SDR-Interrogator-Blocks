@@ -57,16 +57,13 @@ the block ouputs. These outputs facilitate plotting with the QT GUI Vector Sink 
         self.FileName = FileName
         self.appendDT = appendDT
 
-        #self.SwpVar = self.Start
         self.state = 0
         self.xAxe = np.arange(self.Start,self.Stop+self.Step,self.Step)
         self.data = np.zeros((self.inputs,len(self.xAxe)))
         self.plotOut = np.zeros(OutLen)
-        #self.plotOut[:] = np.nan
         self.sample_buffer = sample_buffer
         self.counter  = sample_buffer
         self.index = 0
-        #self.freq = freq
 
 
 # Callbacks: 
@@ -94,8 +91,7 @@ the block ouputs. These outputs facilitate plotting with the QT GUI Vector Sink 
     def set_append(self,appendDT):
         self.appendDT = appendDT
 
-    # def set_freq(self,freq):
-    #     self.freq = freq
+
     
 ########################################################
 
@@ -130,10 +126,10 @@ the block ouputs. These outputs facilitate plotting with the QT GUI Vector Sink 
             case 5: #Average values
                 self.counter += -1
                 # For each input, average all the items in the data buffers
-                in0 = np.sum(input_items[0])/len(input_items[0])#input_items[0][0] 
-                in1 = np.sum(input_items[1])/len(input_items[1])#input_items[1][0]
-                in2 = np.sum(input_items[2])/len(input_items[2])#input_items[2][0]
-                in3 = np.sum(input_items[3])/len(input_items[3])#input_items[3][0]
+                in0 = np.sum(input_items[0])/len(input_items[0]) 
+                in1 = np.sum(input_items[1])/len(input_items[1])
+                in2 = np.sum(input_items[2])/len(input_items[2])
+                in3 = np.sum(input_items[3])/len(input_items[3])
                 self.avgVec[:,self.counter] = np.array([[in0],[in1],[in2],[in3]])[:,0]
 
                 if self.counter < 0:
@@ -159,11 +155,10 @@ the block ouputs. These outputs facilitate plotting with the QT GUI Vector Sink 
                 out = np.concatenate((self.xAxe.reshape(1,-1),self.data),axis=0)
 
                 if self.appendDT:
-                    time = dt.datetime.now().strftime("%Y-%m-%d-%H%M%S_")
+                    time = dt.datetime.now().strftime("%Y-%m-%d-%H%M%S")+("" if self.FileName=="" else "_")
                 else:
                    time = ""
                 
-                #Ftx = str(self.freq/1e6)+"MHz"+("" if self.FileName=="" else "_")
                 print(f"{self.Path}{time}{self.FileName}")
 
 
