@@ -155,7 +155,7 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
                 out = np.concatenate((self.xAxe.reshape(1,-1),self.data),axis=0)
 
                 if self.appendDT:
-                    time = dt.datetime.now().strftime("%Y-%m-%d-%H%M%S_")
+                    time = dt.datetime.now().strftime("%Y-%m-%d-%H%M%S")+("" if self.FileName=="" else "_")
                 else:
                    time = ""
                 
