@@ -6,8 +6,8 @@ This repository contains a GNU radio module with the Python blocks used in the p
 There are four blocks defined in this repository:
 - Get AM Peaks  -  Block that takes an FFT as input and measures the three peaks of an AM signal
 - CSB Calculator  -  Takes a vector of AM peaks (i.e. from "Get AM Peaks") and calculates the C/SB ratio
-- CSB Sweep Controller  -  Controlling block to sweep the transmit power and record C/SB values. Output is a vector of measured C/SB values.
-- CL Sweep Controller  -  Same as CSB Sweep controller, but with only one input. Records the receive power and the relative conversion loss (SDR Gain - Rx Power). The output is a vector of relative conversion loss
+- Sweep Controller  -  Controlling block to sweep the transmit power and record four values. Output is a vector of measured values at the first input.
+- CL Sweep Controller  -  Very similar to Sweep controller, but with only one input and with an additional parameter (Transmit Gain). Records the receive power and calculates the relative conversion loss (Transmit Gain - Rx Power). The output is a vector of relative conversion loss
   
 ## Notes
 - When using the sweep controllers with a GNU Radio QT GUI Vector sink for plotting, the "Output Length" parameter must be set to a power of two for the program to run efficiently. This length is only used for plotting, so it can take any value greater than the number of datapoints.
