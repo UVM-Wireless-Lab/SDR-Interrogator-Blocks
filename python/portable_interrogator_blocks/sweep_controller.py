@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2025 UVM.
+# 
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -14,11 +14,12 @@ import datetime as dt
 
 class sweep_controller(gr.sync_block):
     """
-Block to sweep gain and measure 4 quantities. Used with C/SB Calculator and Find Peaks blocks 
+Block to sweep a variable and measure up to 4 quantities. Designed for use with C/SB Calculator and Find Peaks blocks 
 to sweep the output gain and record the  lower and upper sideband power, carrier power, and C/SB
 for a tone AM signal. The block functions by publishing a message with the variable to be swept 
 which should be connected to a "Message Pair to Var" block. The 4 inputs are recorded for each 
-sweep value and saved to a .csv file
+sweep value and saved to a .csv file. The first and second inputs are also collected into vectors which are streamed at
+the block ouputs. These outputs facilitate plotting with the QT GUI Vector Sink native to GNU Radio.
 
     \n Inputs:
     \n Sweep - Boolean, when true, sweep is initiated
@@ -28,9 +29,9 @@ sweep value and saved to a .csv file
     \n Sample Buffer - This sets a number of data-buffers to be discarded in between measurements
     \n Averages - Number of measurements to average when saving data
     \n Path - Folder to save file to
-    \n Output Length - output vector length for plotting [1+(Stop-Start)/Step]
+    \n Output Length - output vector length for plotting [1+(Stop-Start)/Step]. Should be padded to the next power of two for efficiency
     \n File Name - Name of file to save
-    \n Add Time - Boolean to append date and time to file name (Y-m-d-HMS). WARNING: If false file will be overwritten if the 
+    \n Add Time - Boolean to append date and time to file name (Y-m-d-HMS). WARNING: If false file may be overwritten if the 
     file name is not changed between sweeps"""
 
     def __init__(self, Sweep = False,Start = 0,Stop =10,Step = 0.5,sample_buffer=10, Average = 1,

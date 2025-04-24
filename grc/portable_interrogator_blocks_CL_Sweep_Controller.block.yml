@@ -4,7 +4,7 @@ category: '[portable_interrogator_blocks]'
 
 templates:
   imports: from gnuradio import portable_interrogator_blocks
-  make: portable_interrogator_blocks.CL_Sweep_Controller(${Sweep}, ${Start}, ${Stop}, ${Step}, ${sample_buffer}, ${Average}, ${Prefix}, ${OutLen},${FileName},${appendDT})
+  make: portable_interrogator_blocks.CL_Sweep_Controller(${Sweep}, ${Start}, ${Stop}, ${Step}, ${sample_buffer}, ${Average}, ${Prefix}, ${OutLen},${FileName},${appendDT},${tx_gain})
 
   callbacks:
   - set_sweep(${Sweep})
@@ -13,6 +13,7 @@ templates:
   - set_path(${Prefix})
   - set_name(${FileName})
   - set_append(${appendDT})
+  - set_tx_gain(${tx_gain})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -71,10 +72,11 @@ parameters:
   dtype: bool
   default: True
 
-# - id: freq
-#   label: Frequency
-#   dtype: float
-#   default: 890e6
+
+- id: tx_gain
+  label: Transmit Gain
+  dtype: float
+  default: 0
 
 
 

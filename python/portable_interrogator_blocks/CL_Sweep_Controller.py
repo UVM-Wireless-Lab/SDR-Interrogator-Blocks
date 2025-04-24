@@ -28,11 +28,12 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
     \n Path - Folder to save file to
     \n Output Length - output vector length for plotting [1+(Stop-Start)/Step]
     \n File Name - Name of file to save
+    \n Transmit Gain - Gain setting for the SDR, used to represent Tx power to relative conversion loss
     \n Add Time - Boolean to append date and time to file name (Y-m-d-HMS). WARNING: If false file will be overwritten if the 
     file name is not changed between sweeps"""
 
     def __init__(self, Sweep = False,Start = 0,Stop =10,Step = 0.5,sample_buffer=10, Average = 1,
-        Prefix = "sweep_out", OutLen = 32,FileName = "power_sweep",appendDT = True):
+        Prefix = "sweep_out", OutLen = 32,FileName = "power_sweep",appendDT = True,tx_gain = 0):
         gr.sync_block.__init__(self,
             name ="CL Sweep Controller",
             in_sig=[np.float32],
@@ -64,6 +65,7 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
         self.counter  = sample_buffer
         self.index = 0
         #self.freq = freq
+        self.tx_gain = tx_gain
 
 
 # Callbacks: 
@@ -91,8 +93,9 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
     def set_append(self,appendDT):
         self.appendDT = appendDT
 
-    # def set_freq(self,freq):
-    #     self.freq = freq
+    def set_tx_gain(self,tx_gain):
+        self.tx_gain = tx_gain
+
     
 ########################################################
 
@@ -128,7 +131,8 @@ sweep value and saved to a .csv file, along with the difference of the gain and 
                 self.counter += -1
                 
                 in0 = np.sum(input_items[0])/len(input_items[0]) # For each input, average values in the input buffer
-                in1 = self.xAxe[self.index]-in0 #np.sum(input_items[1])/len(input_items[1])
+                in1 = self.tx_gain-in0 #in1 = self.xAxe[self.index]-in0
+                
 
                 self.avgVec[:,self.counter] = np.array([[in0],[in1]])[:,0]
 
